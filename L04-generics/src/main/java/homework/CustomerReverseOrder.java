@@ -1,25 +1,20 @@
 package homework;
 
 
-import java.util.Iterator;
-import java.util.PriorityQueue;
-import java.util.TreeSet;
+import java.util.ArrayDeque;
+import java.util.Deque;
 
 public class CustomerReverseOrder {
 
     //todo: 2. надо реализовать методы этого класса
     //надо подобрать подходящую структуру данных, тогда решение будет в "две строчки"
-    PriorityQueue<Customer> data = new PriorityQueue<Customer>((o1, o2) -> Long.compare(o2.getScores(), o1.getScores()));
-    Iterator<Customer> iterator;
+    private final Deque<Customer> stackCustomer = new ArrayDeque<>();
 
     public void add(Customer customer) {
-        this.data.add(customer);
+        stackCustomer.push(customer);
     }
 
     public Customer take() {
-        if (this.iterator == null) {
-            this.iterator = data.iterator();
-        }
-        return iterator.next(); // это "заглушка, чтобы скомилировать"
+        return stackCustomer.pop(); // это "заглушка, чтобы скомилировать"
     }
 }

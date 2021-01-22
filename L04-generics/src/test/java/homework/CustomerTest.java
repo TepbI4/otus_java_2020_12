@@ -80,7 +80,7 @@ class CustomerTest {
     }
 
     @Test
-    @Disabled //эту аннотацию надо убрать
+//    @Disabled //эту аннотацию надо убрать
     @DisplayName("Модификация коллекции")
     void mutationTest() {
         //given
