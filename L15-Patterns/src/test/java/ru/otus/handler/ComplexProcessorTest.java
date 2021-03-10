@@ -14,7 +14,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -68,7 +67,7 @@ class ComplexProcessorTest {
         assertThatExceptionOfType(TestException.class).isThrownBy(() -> complexProcessor.handle(message));
 
         //then
-        verify(processor1, times(1)).process(message);
+        verify(processor1).process(message);
         verify(processor2, never()).process(message);
     }
 
@@ -91,7 +90,7 @@ class ComplexProcessorTest {
         complexProcessor.handle(message);
 
         //then
-        verify(listener, times(1)).onUpdated(message, message);
+        verify(listener).onUpdated(message, message);
     }
 
     private static class TestException extends RuntimeException {
