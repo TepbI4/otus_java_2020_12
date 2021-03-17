@@ -6,7 +6,7 @@ import java.util.List;
 
 public class TestProcessorImpl extends TestProcessor {
 
-    private Method testMethod;
+    private final Method testMethod;
 
     public TestProcessorImpl(Object testClassInstance, Method testMethod, List<Method> beforeMethods, List<Method> afterMethods) {
         super(testClassInstance, beforeMethods, afterMethods);

@@ -2,15 +2,15 @@ package ru.otus.testengine;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.Arrays;
 import java.util.List;
 
 public abstract class TestProcessor {
 
     private TestProcessor next;
-    private Object testClassInstance;
-    private List<Method> beforeMethods;
-    private List<Method> afterMethods;
+    private boolean isSuccess = true;
+    private final Object testClassInstance;
+    private final List<Method> beforeMethods;
+    private final List<Method> afterMethods;
 
     public TestProcessor(Object testClassInstance, List<Method> beforeMethods, List<Method> afterMethods) {
         this.beforeMethods = beforeMethods;
@@ -30,22 +30,21 @@ public abstract class TestProcessor {
         return testClassInstance;
     }
 
-    void before() throws InvocationTargetException, IllegalAccessException {
+    void processBefore() throws InvocationTargetException, IllegalAccessException {
         for (Method beforeMethod : beforeMethods) {
             beforeMethod.invoke(testClassInstance);
         }
     }
 
-    void after() throws InvocationTargetException, IllegalAccessException {
+    void processAfter() throws InvocationTargetException, IllegalAccessException {
         for (Method afterMethod : afterMethods) {
             afterMethod.invoke(testClassInstance);
         }
     }
 
     void process(TestResultsHolder resultsHolder) {
-        Boolean isSuccess = Boolean.TRUE;
         try {
-            before();
+            processBefore();
             processInternal(resultsHolder);
         } catch (InvocationTargetException | IllegalAccessException e) {
             if (e instanceof InvocationTargetException) {
@@ -54,18 +53,22 @@ public abstract class TestProcessor {
                     System.err.println(targetException.getMessage());
                 }
             }
-            isSuccess = Boolean.FALSE;
+            isSuccess = false;
         } finally {
-            try {
-                after();
-            } catch (Exception e) {
-                System.err.println(e.getMessage());
-                isSuccess = Boolean.FALSE;
-            }
+            terminateTest();
             resultsHolder.addTestResult(new TestResult(isSuccess));
             if (getNext() != null) {
                 getNext().process(resultsHolder);
             }
+        }
+    }
+
+    private void terminateTest() {
+        try {
+            processAfter();
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+            isSuccess = false;
         }
     }
 

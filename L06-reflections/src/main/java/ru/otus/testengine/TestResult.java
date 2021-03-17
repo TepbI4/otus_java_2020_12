@@ -2,13 +2,13 @@ package ru.otus.testengine;
 
 public class TestResult {
 
-    Boolean isSuccess;
+    boolean isSuccess;
 
-    public TestResult(Boolean isSuccess) {
+    public TestResult(boolean isSuccess) {
         this.isSuccess = isSuccess;
     }
 
-    Boolean isSuccess() {
+    boolean isSuccess() {
         return isSuccess;
     }
 }

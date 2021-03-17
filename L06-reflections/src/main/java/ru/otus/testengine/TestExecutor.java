@@ -13,7 +13,7 @@ import static java.util.stream.Collectors.toList;
 
 public class TestExecutor {
 
-    Class testClass;
+    private final Class testClass;
 
     public TestExecutor(Class testClass) {
         this.testClass = testClass;
