@@ -13,9 +13,9 @@ import static java.util.stream.Collectors.toList;
 
 public class TestExecutor {
 
-    private final Class testClass;
+    private final Class<?> testClass;
 
-    public TestExecutor(Class testClass) {
+    public TestExecutor(Class<?> testClass) {
         this.testClass = testClass;
     }
 
@@ -46,7 +46,7 @@ public class TestExecutor {
         System.out.println();
     }
 
-    static List<Method> getAnnotatedMethods(Class clazz, Class<? extends Annotation> annotationType) {
+    static List<Method> getAnnotatedMethods(Class<?> clazz, Class<? extends Annotation> annotationType) {
         List<Method> annotatedMethods = Arrays.stream(clazz.getDeclaredMethods())
                 .filter(method -> method.getDeclaredAnnotation(annotationType) != null)
                 .collect(toList());
