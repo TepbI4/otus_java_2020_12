@@ -3,5 +3,5 @@ include 'L01-gradle'
 include 'L04-generics'
 include 'L08-gc'
 include 'L06-reflections'
-include 'L06-reflections'
+include 'L15-Patterns'
 
