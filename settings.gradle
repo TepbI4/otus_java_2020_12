@@ -2,5 +2,7 @@ rootProject.name = 'otus_java_2020_12'
 include 'L01-gradle'
 include 'L04-generics'
 include 'L08-gc'
+include 'L06-reflections'
 include 'L12-solid'
+include 'L15-Patterns'
 
