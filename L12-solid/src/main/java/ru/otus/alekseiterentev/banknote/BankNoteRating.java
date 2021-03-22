@@ -1,3 +1,5 @@
+package ru.otus.alekseiterentev.banknote;
+
 public enum BankNoteRating {
 
     FIFTY(50),

@@ -1,3 +1,5 @@
+package ru.otus.alekseiterentev.banknote;
+
 import java.util.Objects;
 
 public class BankNote {

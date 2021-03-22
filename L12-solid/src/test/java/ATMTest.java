@@ -1,6 +1,13 @@
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import ru.otus.alekseiterentev.atm.ATM;
+import ru.otus.alekseiterentev.atm.BaseATM;
+import ru.otus.alekseiterentev.atm.issuer.BaseIssuer;
+import ru.otus.alekseiterentev.atm.receiver.BaseReceiver;
+import ru.otus.alekseiterentev.banknote.BankNote;
+import ru.otus.alekseiterentev.banknote.BankNoteRating;
+import ru.otus.alekseiterentev.exceptons.NotEnoughMoneyException;
+import ru.otus.alekseiterentev.exceptons.UnableToSplitByExistingBankNotes;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -23,12 +30,12 @@ public class ATMTest {
         initialCells.put(new BankNote(BankNoteRating.TWO_THOUSAND), 1000);
         initialCells.put(new BankNote(BankNoteRating.FIVE_THOUSAND), 1000);
 
-        this.atm = new ATM(initialCells);
+        this.atm = new BaseATM(initialCells, new BaseIssuer(), new BaseReceiver());
     }
 
     @Test
     void getBalanceTest() {
-        Assertions.assertThat(atm.getBalance()).isEqualTo(8850000);
+        assertThat(atm.getBalance()).isEqualTo(8850000);
     }
 
     @Test
@@ -41,13 +48,11 @@ public class ATMTest {
 
         atm.addMoney(bankNotes);
 
-        Assertions.assertThat(atm.getBalance()).isEqualTo(8857650);
+        assertThat(atm.getBalance()).isEqualTo(8857650);
     }
 
     @Test
     void getMoneyTest() throws UnableToSplitByExistingBankNotes, NotEnoughMoneyException {
-
-
         Integer remainingBalance = atm.getBalance();
         Integer requestedValue = 11550;
 
