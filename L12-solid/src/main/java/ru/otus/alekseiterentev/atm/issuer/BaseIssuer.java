@@ -52,7 +52,7 @@ public class BaseIssuer implements Issuer {
                 continue;
             }
 
-            BankNote bankNote = new BankNote(bankNoteRating);
+            BankNote bankNote = BankNote.builder().bankNoteRating(bankNoteRating).build();
             if (!bankNoteCells.containsKey(bankNote)) {
                 continue;
             }

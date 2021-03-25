@@ -22,13 +22,13 @@ public class ATMTest {
 
     @BeforeEach
     void init() {
-        BankNote fifty = new BankNote(BankNoteRating.FIFTY);
-        BankNote oneHundred = new BankNote(BankNoteRating.ONE_HUNDRED);
-        BankNote twoHundred = new BankNote(BankNoteRating.TWO_HUNDRED);
-        BankNote fiveHundred = new BankNote(BankNoteRating.FIVE_HUNDRED);
-        BankNote oneThousand = new BankNote(BankNoteRating.ONE_THOUSAND);
-        BankNote twoThousand = new BankNote(BankNoteRating.TWO_THOUSAND);
-        BankNote fiveThousand = new BankNote(BankNoteRating.FIVE_THOUSAND);
+        BankNote fifty = BankNote.builder().bankNoteRating(BankNoteRating.FIFTY).build();
+        BankNote oneHundred = BankNote.builder().bankNoteRating(BankNoteRating.ONE_HUNDRED).build();
+        BankNote twoHundred = BankNote.builder().bankNoteRating(BankNoteRating.TWO_HUNDRED).build();
+        BankNote fiveHundred = BankNote.builder().bankNoteRating(BankNoteRating.FIVE_HUNDRED).build();
+        BankNote oneThousand = BankNote.builder().bankNoteRating(BankNoteRating.ONE_THOUSAND).build();
+        BankNote twoThousand = BankNote.builder().bankNoteRating(BankNoteRating.TWO_THOUSAND).build();
+        BankNote fiveThousand = BankNote.builder().bankNoteRating(BankNoteRating.FIVE_THOUSAND).build();
         Map<BankNote, BankNoteCell> initialCells = new HashMap<>();
         initialCells.put(fifty, new BankNoteCell(fifty, 1000));
         initialCells.put(oneHundred, new BankNoteCell(oneHundred, 1000));
@@ -49,10 +49,10 @@ public class ATMTest {
     @Test
     void addBankNotesTest() {
         Map<BankNote, Integer> bankNotes = new HashMap<>();
-        bankNotes.put(new BankNote(BankNoteRating.FIFTY), 3);
-        bankNotes.put(new BankNote(BankNoteRating.ONE_HUNDRED), 5);
-        bankNotes.put(new BankNote(BankNoteRating.TWO_HUNDRED), 10);
-        bankNotes.put(new BankNote(BankNoteRating.FIVE_THOUSAND), 1);
+        bankNotes.put(BankNote.builder().bankNoteRating(BankNoteRating.FIFTY).build(), 3);
+        bankNotes.put(BankNote.builder().bankNoteRating(BankNoteRating.ONE_HUNDRED).build(), 5);
+        bankNotes.put(BankNote.builder().bankNoteRating(BankNoteRating.TWO_HUNDRED).build(), 10);
+        bankNotes.put(BankNote.builder().bankNoteRating(BankNoteRating.FIVE_THOUSAND).build(), 1);
 
         atm.addMoney(bankNotes);
 
