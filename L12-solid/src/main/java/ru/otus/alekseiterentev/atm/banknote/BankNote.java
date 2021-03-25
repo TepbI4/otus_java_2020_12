@@ -1,4 +1,4 @@
-package ru.otus.alekseiterentev.banknote;
+package ru.otus.alekseiterentev.atm.banknote;
 
 import java.util.Objects;
 
@@ -12,6 +12,10 @@ public class BankNote {
 
     public BankNoteRating getBankNoteRating() {
         return bankNoteRating;
+    }
+
+    public int getBankNoteRatingValue() {
+        return bankNoteRating.getRatingValue();
     }
 
     @Override

@@ -1,11 +1,13 @@
 package ru.otus.alekseiterentev.atm.issuer;
 
-import ru.otus.alekseiterentev.banknote.BankNote;
-import ru.otus.alekseiterentev.banknote.BankNoteRating;
+import ru.otus.alekseiterentev.atm.BankNoteCell;
+import ru.otus.alekseiterentev.atm.banknote.BankNote;
+import ru.otus.alekseiterentev.atm.banknote.BankNoteRating;
 import ru.otus.alekseiterentev.exceptons.NotEnoughMoneyException;
 import ru.otus.alekseiterentev.exceptons.UnableToSplitByExistingBankNotes;
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
@@ -14,33 +16,27 @@ import java.util.Map;
 public class BaseIssuer implements Issuer {
 
     @Override
-    public Integer getBalance(Map<BankNote, Integer> bankNoteCells) {
-        return bankNoteCells.entrySet().stream()
-                .mapToInt(cell -> cell.getKey().getBankNoteRating().getRatingValue() * cell.getValue()).sum();
+    public Integer getBalance(Collection<BankNoteCell> bankNoteCells) {
+        return bankNoteCells.stream()
+                .mapToInt(cell -> cell.getCellBalance()).sum();
     }
 
     @Override
-    public Map<BankNote, Integer> issueMoney(Map<BankNote, Integer> bankNoteCells, Integer issuedValue) throws UnableToSplitByExistingBankNotes, NotEnoughMoneyException {
-        if (issuedValue > getBalance(bankNoteCells)) {
+    public Map<BankNote, Integer> issueMoney(Map<BankNote, BankNoteCell> bankNoteCells, int issuedValue) throws UnableToSplitByExistingBankNotes, NotEnoughMoneyException {
+        if (issuedValue > getBalance(bankNoteCells.values())) {
             throw new NotEnoughMoneyException("ATM has not enough money");
         }
 
         Map<BankNote, Integer> bankNotes = split(bankNoteCells, issuedValue);
 
         for (Map.Entry<BankNote, Integer> bankNote : bankNotes.entrySet()) {
-            Integer remaining = bankNoteCells.get(bankNote.getKey());
-            remaining = remaining - bankNote.getValue();
-            if (remaining > 0) {
-                bankNoteCells.put(bankNote.getKey(), remaining);
-            } else {
-                bankNotes.remove(bankNote.getKey());
-            }
+            bankNoteCells.get(bankNote.getKey()).issueMoney(bankNote.getValue());
         }
 
         return bankNotes;
     }
 
-    private Map<BankNote, Integer> split(Map<BankNote, Integer> bankNoteCells, Integer value) throws UnableToSplitByExistingBankNotes {
+    private Map<BankNote, Integer> split(Map<BankNote, BankNoteCell> bankNoteCells, Integer value) throws UnableToSplitByExistingBankNotes {
         Map<BankNote, Integer> bankNotes = new HashMap<BankNote, Integer>();
 
         List<BankNoteRating> bankNoteRatings = Arrays.asList(BankNoteRating.values());
@@ -61,7 +57,7 @@ public class BaseIssuer implements Issuer {
                 continue;
             }
 
-            Integer cellRemaining = bankNoteCells.get(bankNote);
+            Integer cellRemaining = bankNoteCells.get(bankNote).getBanknotesCount();
             if (cellRemaining < div) {
                 bankNotes.put(bankNote, cellRemaining);
                 div = div - cellRemaining;

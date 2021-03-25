@@ -1,4 +1,4 @@
-package ru.otus.alekseiterentev.banknote;
+package ru.otus.alekseiterentev.atm.banknote;
 
 public enum BankNoteRating {
 

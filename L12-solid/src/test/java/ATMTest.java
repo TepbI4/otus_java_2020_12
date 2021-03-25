@@ -1,11 +1,12 @@
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.otus.alekseiterentev.atm.ATM;
+import ru.otus.alekseiterentev.atm.BankNoteCell;
 import ru.otus.alekseiterentev.atm.BaseATM;
 import ru.otus.alekseiterentev.atm.issuer.BaseIssuer;
 import ru.otus.alekseiterentev.atm.receiver.BaseReceiver;
-import ru.otus.alekseiterentev.banknote.BankNote;
-import ru.otus.alekseiterentev.banknote.BankNoteRating;
+import ru.otus.alekseiterentev.atm.banknote.BankNote;
+import ru.otus.alekseiterentev.atm.banknote.BankNoteRating;
 import ru.otus.alekseiterentev.exceptons.NotEnoughMoneyException;
 import ru.otus.alekseiterentev.exceptons.UnableToSplitByExistingBankNotes;
 
@@ -21,14 +22,21 @@ public class ATMTest {
 
     @BeforeEach
     void init() {
-        Map<BankNote, Integer> initialCells = new HashMap<>();
-        initialCells.put(new BankNote(BankNoteRating.FIFTY), 1000);
-        initialCells.put(new BankNote(BankNoteRating.ONE_HUNDRED), 1000);
-        initialCells.put(new BankNote(BankNoteRating.TWO_HUNDRED), 1000);
-        initialCells.put(new BankNote(BankNoteRating.FIVE_HUNDRED), 1000);
-        initialCells.put(new BankNote(BankNoteRating.ONE_THOUSAND), 1000);
-        initialCells.put(new BankNote(BankNoteRating.TWO_THOUSAND), 1000);
-        initialCells.put(new BankNote(BankNoteRating.FIVE_THOUSAND), 1000);
+        BankNote fifty = new BankNote(BankNoteRating.FIFTY);
+        BankNote oneHundred = new BankNote(BankNoteRating.ONE_HUNDRED);
+        BankNote twoHundred = new BankNote(BankNoteRating.TWO_HUNDRED);
+        BankNote fiveHundred = new BankNote(BankNoteRating.FIVE_HUNDRED);
+        BankNote oneThousand = new BankNote(BankNoteRating.ONE_THOUSAND);
+        BankNote twoThousand = new BankNote(BankNoteRating.TWO_THOUSAND);
+        BankNote fiveThousand = new BankNote(BankNoteRating.FIVE_THOUSAND);
+        Map<BankNote, BankNoteCell> initialCells = new HashMap<>();
+        initialCells.put(fifty, new BankNoteCell(fifty, 1000));
+        initialCells.put(oneHundred, new BankNoteCell(oneHundred, 1000));
+        initialCells.put(twoHundred, new BankNoteCell(twoHundred, 1000));
+        initialCells.put(fiveHundred, new BankNoteCell(fiveHundred, 1000));
+        initialCells.put(oneThousand, new BankNoteCell(oneThousand, 1000));
+        initialCells.put(twoThousand, new BankNoteCell(twoThousand, 1000));
+        initialCells.put(fiveThousand, new BankNoteCell(fiveThousand, 1000));
 
         this.atm = new BaseATM(initialCells, new BaseIssuer(), new BaseReceiver());
     }

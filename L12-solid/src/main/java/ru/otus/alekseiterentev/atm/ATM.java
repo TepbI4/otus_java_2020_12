@@ -1,6 +1,6 @@
 package ru.otus.alekseiterentev.atm;
 
-import ru.otus.alekseiterentev.banknote.BankNote;
+import ru.otus.alekseiterentev.atm.banknote.BankNote;
 import ru.otus.alekseiterentev.exceptons.NotEnoughMoneyException;
 import ru.otus.alekseiterentev.exceptons.UnableToSplitByExistingBankNotes;
 
