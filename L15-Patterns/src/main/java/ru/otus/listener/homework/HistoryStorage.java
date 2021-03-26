@@ -5,5 +5,5 @@ import java.util.List;
 public interface HistoryStorage {
 
     void addRecord(HistoryRecord record);
-    List<HistoryRecord> showHistory();
+    List<HistoryRecord> getHistory();
 }

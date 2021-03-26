@@ -8,7 +8,7 @@ import java.util.Optional;
 
 public class HistoryListener implements Listener, HistoryReader {
 
-    HistoryStorage historyStorage;
+    private final HistoryStorage historyStorage;
 
     public HistoryListener(HistoryStorage historyStorage) {
         this.historyStorage = historyStorage;
@@ -21,7 +21,7 @@ public class HistoryListener implements Listener, HistoryReader {
 
     @Override
     public Optional<Message> findMessageById(long id) {
-        return historyStorage.showHistory().stream()
+        return historyStorage.getHistory().stream()
                 .filter(historyRecord -> historyRecord.getOldMsg().getId() == id)
                 .map(HistoryRecord::getOldMsg).findAny();
     }

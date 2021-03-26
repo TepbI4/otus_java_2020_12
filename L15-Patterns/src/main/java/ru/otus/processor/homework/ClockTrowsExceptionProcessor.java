@@ -8,7 +8,7 @@ import java.time.LocalTime;
 
 public class ClockTrowsExceptionProcessor implements Processor {
 
-    private Clock clock;
+    private final Clock clock;
 
     public ClockTrowsExceptionProcessor(Clock clock) {
         this.clock = clock;

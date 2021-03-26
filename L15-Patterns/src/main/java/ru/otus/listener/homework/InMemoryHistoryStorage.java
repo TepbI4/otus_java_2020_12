@@ -13,7 +13,7 @@ public class InMemoryHistoryStorage implements HistoryStorage {
         historyRecords.add(record);
     }
 
-    public List<HistoryRecord> showHistory() {
+    public List<HistoryRecord> getHistory() {
         return Collections.unmodifiableList(historyRecords);
     }
 }
