@@ -11,9 +11,9 @@ import java.util.TreeMap;
 
 public class FileSerializer implements Serializer {
 
-    Gson gson;
+    private final Gson gson;
 
-    Path path;
+    private final Path path;
 
     public FileSerializer(String fileName) {
         this.gson = new Gson();
